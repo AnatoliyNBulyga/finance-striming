@@ -1,0 +1,11 @@
+@import "utils/colors.scss";
+
+.footer__inner {
+    width: 100%;
+    margin-top: auto;
+    min-height: 80px;
+    border-top: 1px solid $border-color;
+    padding: 30px 0;
+    color: lighten($text-color, 30%);
+    margin-top: 50px;
+}

@@ -1,0 +1,4 @@
+// transition
+@mixin transition ($deleay: .2s, $prop: all) {
+    transition: $prop $deleay ease;
+}
