@@ -1,24 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+// core
+import React, {useEffect} from "react";
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+// hooks
+import { useDispatch } from "react-redux";
+// socket
+import socket from "socket/index.js";
+// redux action creaters
+import { dataActions } from "store/actions/data_actions";
+// auth0
+import { useAuth0 } from "@auth0/auth0-react";
+// styles
+import "app.scss";
+// components
+import Private from "pages/private";
+import Public from "pages/public";
+import Navbar from "components/common/navbar/navbar";
+import Preloader from "components/preloader/preloader";
+import Footer from "components/common/footer/footer";
 
-function App() {
+const App = () => {
+  // hooks
+  const { isAuthenticated, isLoading } = useAuth0();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    try {
+      dispatch(dataActions.showLoader);
+      socket.emit("start");
+      socket.on("ticker", (tickers) => {
+        dispatch(dataActions.setDataAction(tickers));
+      });
+      dispatch(dataActions.hideLoader);
+    } catch(error) {
+      console.log(error);
+    }
+    // Return a callback to be run before unmount-ing.
+    return () => {
+      socket.close();
+    };
+  }, [dispatch]); // Pass in an empty array to only run on mount.
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    isLoading
+    // preloader before loading auth0 data
+    ? <Preloader />
+    // if auth0 data was loaded
+    : (
+      <Router>
+          <Navbar />
+          <Switch>
+            <Route path="/private" component={Private} />
+            <Route path="/public" component={Public} />
+            {
+              isAuthenticated
+                ? <Redirect to="/private"/>
+                : <Redirect to="/public"/>
+            }
+          </Switch>
+          <Footer />
+      </Router>
+    ) 
   );
 }
 

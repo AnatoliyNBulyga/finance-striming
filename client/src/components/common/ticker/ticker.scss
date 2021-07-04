@@ -1,0 +1,222 @@
+@import "utils/colors.scss";
+@import "utils/mixins.scss";
+
+/* ticker */
+.ticker {
+    display: flex;
+    overflow-y: hidden;
+    align-items: center;
+    min-width: 160px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    padding: 6px;
+    background-color: white;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    white-space: nowrap;
+    animation: .5s fade-in  ease;
+    cursor: pointer;
+    @include transition();
+
+    &:hover {
+        background-color: $background-main;
+    }
+
+    &__indicator {
+
+        &-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-right: 8px;
+            background-color: $danger-backgound;  
+            height: 32px;
+            width: 32px;
+
+            &.positive {
+                background-color: $access-background; 
+                color: $access-color;
+            }
+            &.negative {
+                color: $danger-color;
+            }
+        }
+
+        &-percent {
+            font-size: 0.85rem;
+            line-height: 1.5rem;
+            font-weight: 700;
+        } 
+    }
+
+    &__info {
+        margin-right: 10px;
+
+        &-title, &-price {
+            overflow: hidden;
+            max-width: 80px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+    
+    &__yield {
+        margin-left: auto;
+        text-align: right;
+
+        &.positive {
+            color: $access-color;
+        }
+        
+        &.negative {
+            color: $danger-color;
+        }
+    }
+
+    &__badge {
+        display: flex;
+        justify-content: center;
+        font-size: .6875rem;
+        line-height: 1rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: white;
+        background-color: $text-color;
+        border-radius: 4px;
+        padding: 3px 6px;
+        margin-right: 10px;
+        min-width: 45px;
+    }
+
+    &__badge.ticker__badge--AAPL {
+        background-color: $background-apple;
+    }
+    &__badge.ticker__badge--GOOGL {
+        background-color: $background-alphabet;
+    }
+    &__badge.ticker__badge--MSFT {
+        background-color: $background-microsoft;
+    }
+    &__badge.ticker__badge--AMZN {
+        background-color: $background-amazon;
+    }
+    &__badge.ticker__badge--FB {
+        background-color: $background-facebook;
+    }
+    &__badge.ticker__badge--TSLA {
+        background-color: $background-tesla;
+    }
+
+    // modificate for main tickers
+    &.ticker--main {
+        border: none;
+        border-top: 1px solid $border-color;
+        background-color: transparent;
+        border-radius: 0;
+        margin-bottom: 0;
+        padding: 10px 6px;
+
+        &:hover {
+            background-color: white;
+        }
+
+        & .ticker {
+
+            &__price {
+                color: $price-color;
+                margin-left: auto;
+            }
+    
+            &__inner {
+                display: flex;
+                align-items: center;
+                width: 100%;
+            }
+    
+            &__indicator {
+    
+                &-inner {
+                    margin-left: 8px;
+                    margin-right: 0;
+                    min-width: 90px;
+                    max-width: 140px;
+                    overflow: hidden;
+                }
+                
+            }
+        }
+
+        & .title-content, 
+        & .ticker__price,
+        & .ticker__indicator-change-price {
+            font-size: .875rem;
+            font-weight: 700;
+            line-height: 1.25rem;
+        }
+    } 
+
+    // modificate for sidebar tickers
+    &.ticker--sidebar {
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+        padding: 0 12px;
+        margin: 0;
+
+        &:hover {
+            background-color: white;
+        }
+
+        & .ticker {
+            &__badge {
+                padding: 3px;
+                margin-bottom: 3px;
+            }
+
+            &__price {
+                color: $price-color;
+                margin-left: auto;
+            }
+    
+            &__inner {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                padding: 12px 0;
+                border-top: 1px solid $border-color;
+            }
+    
+            &__indicator {
+    
+                &-inner {
+                    margin-left: 8px;
+                    margin-right: 0;
+                    min-width: 80px;
+                    max-width: 120px;
+                    border-radius: 6px;
+                }
+            }
+        }
+
+        & .title-content, 
+        & .ticker__price,
+        & .ticker__indicator-change-price {
+            font-size: .875rem;
+            font-weight: 700;
+            line-height: 1.25rem;
+        }
+    }    
+}
+
+@media(max-width: 400px) {
+    .ticker {
+
+        &.ticker--sidebar,
+        &.ticker--main {
+            & .ticker__indicator-inner {
+                display: none;
+            }
+        }
+    }
+}
