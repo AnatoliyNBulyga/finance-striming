@@ -20,7 +20,7 @@ const Private = () => {
   }, []);
   // preloader before loading auth0 data
   if ( isLoading ) return <Preloader />;
-  // if (isLoading) return <Preloader />;
+  
   return (
     // if user is authenticated
     isAuthenticated

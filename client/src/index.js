@@ -2,7 +2,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 // componenst
-import App from "./App";
+import App from "App";
 // redux
 import {Provider} from "react-redux";
 import store from "./store/index";

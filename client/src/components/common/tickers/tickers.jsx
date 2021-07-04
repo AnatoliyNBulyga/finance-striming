@@ -6,20 +6,23 @@ import { useSelector } from "react-redux";
 import Grid from '@material-ui/core/Grid';
 // components
 import Ticker from "components/common/ticker/ticker";
+import Preloader from "components/preloader/preloader";
 // styles
 import "./tickers.scss";
 
 
 const Tickers = () => {
   // hooks
-  const {tickers} = useSelector(state => state.data);
-
-  // filter array for defferent display on page
+  const { tickers, isLoaded } = useSelector(state => state.data);
+  // filter array for different display on page
   const maxPriceTickers = tickers
     .sort( (nextTicker, prevTicker) => nextTicker.change - prevTicker.change) // sort tickers array by price
     .slice(tickers.length - 2); // get last 2 tickers with max price from array
   const mostFollowedTickers = [...tickers]
     .splice(1, 3); // get last 3 tickers with max price from array 
+
+  // preloader before loading main content
+  if ( !isLoaded ) return <Preloader />;
 
   return (
       <div className="main-content content">
@@ -29,7 +32,7 @@ const Tickers = () => {
                 { 
                   tickers.length
                   ? tickers.map( 
-                    ( { ticker, price, change, change_percent } )  => <Ticker 
+                    ( { ticker, price, change, change_percent }, index )  => <Ticker 
                       key={ticker} 
                       ticker={ticker}
                       price={price}

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Preloader from "components/preloader/preloader";
 // redux action creaters
 import { getAllCategories } from "store/async_actions/data";
-import { filterActions } from "store/actions/filter_actions";
+import { filtersActions } from "store/actions/filters_actions";
 // styles
 import "./categories.scss";
 // socket
@@ -25,16 +25,16 @@ const Categories = () => {
     // handlers
     const onSelectCategory = useCallback( (index) => {
         // set active category
-        dispatch(filterActions.setCategory(index));
+        dispatch(filtersActions.setCategory(index));
         socket.emit("start", {
             category: index
         })
     }, [dispatch]);
 
     if (!isLoaded) return ( // show preloader before loading all categories from server
-        <header className="categories header">
+        <div className="categories">
            <Preloader />
-        </header>
+        </div>
     );
     
     return (

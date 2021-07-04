@@ -9,7 +9,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    height: '100vh'
+    minHeight: "calc(100vh - 300px)",
+    position: "fixed",
+    zIndex: 10,
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "#f8f9fa"
   },
 }));
 

@@ -1,5 +1,5 @@
 // constants for actions
-import { constantFilter } from "store/actions/filter_actions";
+import { constantFilters } from "store/actions/filters_actions";
 
 const initialState = {
     activeCategory: 0,
@@ -9,13 +9,13 @@ const initialState = {
 
 export const filtersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case constantFilter.SHOW_LOADER: 
+        case constantFilters.SHOW_LOADER: 
             return {...state, isLoaded: false};
-        case constantFilter.HIDE_LOADER: 
+        case constantFilters.HIDE_LOADER: 
             return {...state, isLoaded: true};
-        case constantFilter.SET_CATEGORY:
+        case constantFilters.SET_CATEGORY:
             return {...state, activeCategory: action.payload};
-        case constantFilter.SET_ALL_CATEGORIES: {
+        case constantFilters.SET_ALL_CATEGORIES: {
             return {...state, categories: action.payload};
         }    
         default: 

@@ -1,5 +1,5 @@
 import db from "../db.js";
-const FETCH_INTERVAL = 5000;
+const FETCH_INTERVAL = 55000;
 import { socketServer } from "../server.js";
 
 
@@ -37,7 +37,6 @@ class SocketService {
             _yield: this.randomValue(0, 2, 2),
             last_trade_time: this.utcDate()
         }));
-
         socket.emit("ticker", quotes);
     }
       
@@ -59,7 +58,6 @@ class SocketService {
         // clear interval after set new options
         socket.on("start", clear);
         socket.on("disconnect", clear);
-
     }
 
     socketConnection() {

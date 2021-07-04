@@ -10,7 +10,7 @@ import { dataActions } from "store/actions/data_actions";
 // auth0
 import { useAuth0 } from "@auth0/auth0-react";
 // styles
-import "./app.scss";
+import "app.scss";
 // components
 import Private from "pages/private";
 import Public from "pages/public";
@@ -25,10 +25,12 @@ const App = () => {
 
   useEffect(() => {
     try {
+      dispatch(dataActions.showLoader);
       socket.emit("start");
       socket.on("ticker", (tickers) => {
         dispatch(dataActions.setDataAction(tickers));
       });
+      dispatch(dataActions.hideLoader);
     } catch(error) {
       console.log(error);
     }

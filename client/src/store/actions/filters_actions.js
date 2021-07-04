@@ -1,5 +1,5 @@
 // constants for actions
-export const constantFilter = {
+export const constantFilters = {
     SHOW_LOADER: 'SHOW_LOADER',
     HIDE_LOADER: 'HIDE_LOADER',
     SET_CATEGORY: 'SET_CATEGORY',
@@ -7,23 +7,23 @@ export const constantFilter = {
 };
 
 // action creaters
-export const filterActions = {
+export const filtersActions = {
 
     showLoader: () => ({
-        type: constantFilter.SHOW_LOADER
+        type: constantFilters.SHOW_LOADER
     }),
     
     hideLoader: () => ({
-        type: constantFilter.HIDE_LOADER
+        type: constantFilters.HIDE_LOADER
     }),
     
     setCategory: (category) => ({
-        type: constantFilter.SET_CATEGORY,
+        type: constantFilters.SET_CATEGORY,
         payload: category
     }),
     
     setAllCategories: (categories) => ({
-        type: constantFilter.SET_ALL_CATEGORIES,
+        type: constantFilters.SET_ALL_CATEGORIES,
         payload: categories
     })
 
