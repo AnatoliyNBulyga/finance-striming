@@ -1,4 +1,4 @@
-import { Router } from "express";
+import Router from "express";
 const router = new Router();
 
 import TickerController from "../controllers/ticker_controller.js";
