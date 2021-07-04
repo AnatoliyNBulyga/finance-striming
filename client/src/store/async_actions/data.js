@@ -1,20 +1,21 @@
 // axios
 import axios from "axios";
 // config settings
-import {API_URL} from "../../config.js";
+import { API_URL } from "config.js";
 // redux action creaters
-import {setAllCategories, showLoader, hideLoader} from "../actions/filter_actions";
+import { filterActions } from "store/actions/filter_actions";
 
+// Get all categories from server
 export const getAllCategories = () => {
     return async dispatch => {
         try {
-            dispatch(showLoader());
+            dispatch(filterActions.showLoader());
             const url = `${API_URL}api/tickers/categories`;
             const response = await axios.get(url);
-            dispatch(setAllCategories(response.data));
-            dispatch(hideLoader());
+            dispatch(filterActions.setAllCategories(response.data));
+            dispatch(filterActions.hideLoader());
         } catch(e) {
             console.log('error', e);
         }
     }
-}
+};

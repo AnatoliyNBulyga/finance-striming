@@ -1,7 +1,6 @@
 // core
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import { Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
 // auth0
 import { useAuth0 } from '@auth0/auth0-react';
 // animation
@@ -20,7 +19,7 @@ const Private = () => {
     gsap.from(".wrap-animate", {duration: 1, y: 30});
   }, []);
   // preloader before loading auth0 data
-  if (isLoading) return <Preloader />;
+  if ( isLoading ) return <Preloader />;
   // if (isLoading) return <Preloader />;
   return (
     // if user is authenticated
@@ -33,7 +32,6 @@ const Private = () => {
     )
     // if user isn't login
     : <Redirect to="/public" exact />
-      
   );
 };
 

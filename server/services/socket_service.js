@@ -1,6 +1,7 @@
 import db from "../db.js";
-const FETCH_INTERVAL = 100000;
-import {socketServer} from "../server.js";
+const FETCH_INTERVAL = 5000;
+import { socketServer } from "../server.js";
+
 
 class SocketService {
 
@@ -14,10 +15,17 @@ class SocketService {
         return new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
     }
       
-    getQuotes(socket) {
+    getQuotes({socket, options}) {
 
-        const quotes = db.tickers.map((ticker, index) => ({
-            _id: index,
+        let result = [...db.tickers];
+        // if set options from socket
+        if (options) {
+            const {category} = options;
+            if (category) {  // if index of category > 0 => filtring array else by default "All" 
+                result = db.tickers.filter( ticker => ticker.category === category );
+            }
+        }
+        const quotes = result.map((ticker) => ({
             _category: ticker.category,
             _company: ticker.company,
             ticker: ticker.name,
@@ -33,24 +41,35 @@ class SocketService {
         socket.emit("ticker", quotes);
     }
       
-    trackTickers(socket, array) {
+    trackTickers({socket, options}) { 
+
         // run the first time immediately
-        this.getQuotes(socket, array);
-      
+        this.getQuotes({socket, options});
+
         // every N seconds
         const timer = setInterval( () => {
-            this.getQuotes(socket);
-        }, FETCH_INTERVAL);
-      
-        socket.on("disconnect", function() {
-          clearInterval(timer);
-        });
+            this.getQuotes({socket, options});
+        }, FETCH_INTERVAL); 
+
+        const clear = () => {
+            clearInterval(timer);
+            console.log("Clear timer");
+        }
+
+        // clear interval after set new options
+        socket.on("start", clear);
+        socket.on("disconnect", clear);
+
     }
+
     socketConnection() {
-        let filtredTickers = [];
         return socketServer.on("connection", (socket) => {
-            socket.on("start", () => {
-                this.trackTickers(socket);
+            socket.on("start", (options) => {
+                const args = {
+                    socket,
+                    options
+                }
+                this.trackTickers(args);
             });
         });
     }

@@ -1,4 +1,3 @@
-
 const db = {
     tickers: [
         { name: "AAPL", company: "Apple", category: 1}, // Apple, USA

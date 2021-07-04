@@ -1,11 +1,13 @@
 // core
 import React from "react";
+// styles
 import "./ticker.scss";
 // icons
 import ArrowDown from "components/icons/arrow_down";
 import ArrowTop from "components/icons/arrow_top";
 // helper for price devide
 import { getPriceDevider } from "utils/utils";
+
 
 const Ticker = ({ id, company, ticker, price, change, change_percent, type }) => {
   // css class animation compute

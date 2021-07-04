@@ -5,17 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import Preloader from "components/preloader/preloader";
 // redux action creaters
 import { getAllCategories } from "store/async_actions/data";
-import { setCategory} from "store/actions/filter_actions";
-import { setDataAction, showLoader, hideLoader } from "store/actions/data_actions";
+import { filterActions } from "store/actions/filter_actions";
 // styles
 import "./categories.scss";
+// socket
+import socket from "socket/index.js";
+
 
 const Categories = () => {
-    console.log("categories")
     // hooks
     const dispatch = useDispatch();
     const {categories, activeCategory, isLoaded} = useSelector( state => state.filters);
-
+    
+    // fetch all categories from server
     useEffect(() => {
         dispatch(getAllCategories());
     }, [dispatch]);
@@ -23,7 +25,10 @@ const Categories = () => {
     // handlers
     const onSelectCategory = useCallback( (index) => {
         // set active category
-        dispatch(setCategory(index));
+        dispatch(filterActions.setCategory(index));
+        socket.emit("start", {
+            category: index
+        })
     }, [dispatch]);
 
     if (!isLoaded) return ( // show preloader before loading all categories from server

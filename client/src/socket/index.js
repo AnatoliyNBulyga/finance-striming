@@ -1,9 +1,10 @@
 // core
 import { io } from "socket.io-client";
 // config settings
-import { WS_URL } from "../config.js";
+import { API_URL } from "config.js";
 
-const socket = io(WS_URL);
+// init socket
+const socket = io(API_URL, { transports: ["websocket"] });
 
 socket.on("connect", () => {
     console.log("Websocket connected ");

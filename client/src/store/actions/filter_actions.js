@@ -1,24 +1,30 @@
-export const constantData = {
+// constants for actions
+export const constantFilter = {
     SHOW_LOADER: 'SHOW_LOADER',
     HIDE_LOADER: 'HIDE_LOADER',
     SET_CATEGORY: 'SET_CATEGORY',
     SET_ALL_CATEGORIES: 'SET_ALL_CATEGORIES',
+};
+
+// action creaters
+export const filterActions = {
+
+    showLoader: () => ({
+        type: constantFilter.SHOW_LOADER
+    }),
+    
+    hideLoader: () => ({
+        type: constantFilter.HIDE_LOADER
+    }),
+    
+    setCategory: (category) => ({
+        type: constantFilter.SET_CATEGORY,
+        payload: category
+    }),
+    
+    setAllCategories: (categories) => ({
+        type: constantFilter.SET_ALL_CATEGORIES,
+        payload: categories
+    })
+
 }
-
-export const showLoader = () => ({
-    type: constantData.SHOW_LOADER
-});
-
-export const hideLoader = () => ({
-    type: constantData.HIDE_LOADER
-});
-
-export const setCategory = (category) => ({
-    type: constantData.SET_CATEGORY,
-    payload: category
-});
-
-export const setAllCategories = (categories) => ({
-    type: constantData.SET_ALL_CATEGORIES,
-    payload: categories
-});

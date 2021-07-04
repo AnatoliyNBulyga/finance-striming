@@ -3,7 +3,6 @@ import React from "react";
 // material-ui
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -14,7 +13,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CircularIndeterminate() {
+
+const Preloader = () => {
   const classes = useStyles();
 
   return (
@@ -23,3 +23,4 @@ export default function CircularIndeterminate() {
     </div>
   );
 }
+export default Preloader;
