@@ -1,4 +1,3 @@
-import React from "react";
 import { dataReducer } from "store/reducers/data_reducer";
 import { dataActions } from "store/actions/data_actions";
 

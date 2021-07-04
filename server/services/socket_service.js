@@ -1,5 +1,5 @@
 import db from "../db.js";
-const FETCH_INTERVAL = 55000;
+const FETCH_INTERVAL = 8000;
 import { socketServer } from "../server.js";
 
 
@@ -52,7 +52,6 @@ class SocketService {
 
         const clear = () => {
             clearInterval(timer);
-            console.log("Clear timer");
         }
 
         // clear interval after set new options
